@@ -67,7 +67,8 @@ export default class SafeTrek extends Component<Props, State> {
               this.setState({settings: savedSettings})
             }
           })
-        } else {
+        } 
+        else {
           if (uri) {
             const authCode = uri.substring(uri.indexOf('=') + 1, uri.indexOf('&'))
             const data = {
@@ -103,7 +104,8 @@ export default class SafeTrek extends Component<Props, State> {
             })
             .catch(error => console.log('Error retrieving accessToken: ', error))
 
-          } else if (this.state.safeTrekToken.accessToken.length <= 0) {
+          } 
+          else if (this.state.safeTrekToken.accessToken.length <= 0) {
             // if not SafeTrek token is stored redirect user to authorize app
             let url = `https://account-sandbox.safetrek.io/authorize?audience=https://api-sandbox.safetrek.io&client_id=${SafeTrekClientId}&scope=openid+phone+offline_access&response_type=code&redirect_uri=safetrekfb://callback`
             Linking.openURL(url).catch(err => console.error('An error occurred', err))
@@ -184,6 +186,7 @@ export default class SafeTrek extends Component<Props, State> {
         shareAlarm()
       }
       this.setState({alarmCreated: true})
+      setTimeout(() => { this.setState({alarmCreated: false})}, 10000);
       })
     .catch(error => {
         alert('There was a problem with sending the Alarm.\n' + error.message)
@@ -206,19 +209,20 @@ export default class SafeTrek extends Component<Props, State> {
        })
     })
   }
-
   render() {
-
     return (
       <StyledView alarmCreated={this.state.alarmCreated}>
         {
           (this.state.facebookToken.length <= 0 )
           ? <Login
-            accessToken={this.state.facebookToken}
-            onTokenUpdate={this.updateFacebookToken}/>
+              accessToken={this.state.facebookToken}
+              onTokenUpdate={this.updateFacebookToken}/>
           : <AlarmButton onAlarmTriggered={this.triggerAlarm} />
         }
-        <SettingsControls shareLocation={this.state.settings.shareLocation} onChange={this.updateLocationSharing}/>
+        <SettingsControls 
+          alarmCreated={this.state.alarmCreated}
+          shareLocation={this.state.settings.shareLocation} 
+          onChange={this.updateLocationSharing}/>
       </StyledView>
     )
   }

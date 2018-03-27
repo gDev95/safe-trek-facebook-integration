@@ -24,10 +24,10 @@ const shareAlarm = (geolocation: Geolocation = undefined): void => {
           }
         ).then(
           () => {
-            alert('Share with ShareApi success.')
+            console.log("Success")
           },
          (error) => {
-            alert('Share with ShareApi failed with error: ' + error)
+            console.log('error: ' + error)
           }
         )
       })
@@ -47,10 +47,10 @@ const shareAlarm = (geolocation: Geolocation = undefined): void => {
         }
       ).then(
         () => {
-          alert('Share with ShareApi success.')
+          console.log("Success")
         },
        (error) => {
-          alert('Share with ShareApi failed with error: ' + error)
+          console.log('error: ' + error)
         }
       )
     }
