@@ -1,7 +1,20 @@
 import {AsyncStorage} from 'react-native'
 import Settings from '../models/Settings'
+import {SafeTrekToken} from '../models/Auth'
 // import Auth from '../models/Auth'
 export class LocalStorage {
+    async getToken(key: string): Promise <SafeTrekToken> {
+        return AsyncStorage.getItem(`@${key}`)
+        .then((json) => {
+            return JSON.parse(json) as SafeTrekToken
+        })
+    }
+    async setToken(newToken: SafeTrekToken, key: string): Promise<void> {
+        return AsyncStorage.setItem(`@${key}`, JSON.stringify(newToken))
+    }
+    async removeToken(key: string): Promise<void> {
+        return AsyncStorage.removeItem(key)
+    }
     async getSettings(): Promise<Settings> {
         return AsyncStorage.getItem('@MySettings')
         .then((json) => {
