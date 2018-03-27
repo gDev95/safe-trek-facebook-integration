@@ -9,7 +9,7 @@ const Settings: StatelessComponent<SettingsProps> = (props) => {
     const {shareLocation, onChange} = props
     return(
         <StyledContainer>
-          <Option label='Share my location' value={shareLocation} onValueChange={onChange} />
+          <Option label='Share my location on Facebook' value={shareLocation} onValueChange={onChange} />
         </StyledContainer>
         )
 
