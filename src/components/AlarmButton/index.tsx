@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 30,
+        borderRadius: 50,
         backgroundColor: '#1d2749',
         height: 80,
         width: 80
