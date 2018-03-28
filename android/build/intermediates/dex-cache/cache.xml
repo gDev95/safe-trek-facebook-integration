@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="47635644d0d5c103c1dd8360549eb9ba3225c7d3">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-25.3.1_6c18ff1e4ca9b8f64336c99c7c2c0ca44f42515b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fbcore/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="37345de2ed2772f385eaeec37a9c2ff0fea99ad7">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fbcore-1.3.0_c5c78a3c9d70620a997f32cf954a9d9e9fd35abc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/25.3.1/support-annotations-25.3.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="bf8841d29fa39e077730e7a91222c2ce269fa7c9">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/support-annotations-25.3.1_bf2a3b54a90f00f73c3154096154831716d94d16.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp-urlconnection/3.6.0/3f9b16b774f2c36cfd86dd2053d0b3059531dacc/okhttp-urlconnection-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3f9b16b774f2c36cfd86dd2053d0b3059531dacc">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/okhttp-urlconnection-3.6.0_a3d922222e4f45510adc864d92b6248ca9aeda3a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-base/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="72128af126ddd7d6252da9357fe560d3abcdfb0c">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-base-1.3.0_1fbda4cb56e543687f11348017151361b96abd87.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.0/5871fb60dc68d67da54a663c3fd636a10a532948/jsr305-3.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="5871fb60dc68d67da54a663c3fd636a10a532948">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/jsr305-3.0.0_ae4fc3a6ccbdf4f45e78201388642131618fcdff.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fresco/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="fe85b87215e405f5917d40ae4960488ac9224b74">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fresco-1.3.0_ed1102097a3628859324059bf6c19d307ae44d1f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="914f5d3e3ace66080e59613708f06d129a222e25">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/com.android.support-cardview-v7-25.3.1_4cc6350b6b67adb3f1970cf5408526bc9e51845a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="efb8cb62d47d157c29d1521daac7eefd4cb881ee">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-25.3.1_5a21e5fa2cd7542116473d5b3a123174cdf1d709.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/exploded-aar/com.facebook.fbui.textlayoutbuilder/textlayoutbuilder/1.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f90b593491e4044903f0bbf68dc3fa2790b151b9">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_6047d7df3b588e0d1f29fea0978cf6ae01b7f672.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-applinks/1.4.0/8ad21bf21784dacce5f2043afb97218cc377e835/bolts-applinks-1.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8ad21bf21784dacce5f2043afb97218cc377e835">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/bolts-applinks-1.4.0_cedfeccb8e2b0b2dc1dfca24c5d455d7d73ff514.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/exploded-aar/SafeTrekFB/react-native-fbsdk/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="4e517fc065f2ac1f659d21db772a7123670a84ad">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/SafeTrekFB-react-native-fbsdk-unspecified_ffbc6a0e12f5cbc4e69beb1c89885ecbb7f07ce3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6975da39a7040257bd51d21a231b76c915872d38">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/javax.inject-1_7358f78799758b811bd5ff8d5fcc43b0870be0ba.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="da27a32db6af8954ee8061537c7d476fcb1df46f">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-compat-25.3.1_42f11a80638bfd60e3213c541bb8de9d228334b4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.54.2/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="112e6935caed6ca1c65d627777c76f0296f62867">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/com.facebook.react-react-native-0.54.2_152e9569dee3069f5de2c9d410caa07173b4a288.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="45f697922e6f072daa12f8a2995dc77ab03c11da">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-media-compat-25.3.1_1bae3d654c831a3da2dc3b8a641fc7abc2d65509.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/exploded-aar/com.android.support/customtabs/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="807751a24cf96566fd8675517c94d8463cf364db">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/com.android.support-customtabs-25.3.1_86b6f4aec2bce3475481db32d6364568c56f66cd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/exploded-aar/com.facebook.fresco/drawee/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c65a2e39d54023bac3aef64a2f0cff89289c7ff6">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-drawee-1.3.0_b10e4a6cd805541e7681792a53dba3c259219e5d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="4a26a1154d053ab11aaf4c3967c42a4d66390991">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-25.3.1_e03195867e4a64f7b1f47288f06e3d8b03aed99e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.6.0/69edde9fc4b01c9fd51d25b83428837478c27254/okhttp-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="69edde9fc4b01c9fd51d25b83428837478c27254">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/okhttp-3.6.0_5cb73037e2dce889e2fa8cdf604976bbbf97985f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/.gradle/caches/modules-2/files-2.1/com.facebook.fbui.textlayoutbuilder/staticlayout-proxy/1.0/f162442a19fff13995fbd51ba414d9ee05579080/staticlayout-proxy-1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f162442a19fff13995fbd51ba414d9ee05579080">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/staticlayout-proxy-1.0_7277b7f4c2b72a17568199b8b0749dbb5358509c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="150252b33b00274cc868578ade018fda0d43a3eb">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-25.3.1_e817034032adf2cfb7f45f7f19322d173fe7f57f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/okio-1.13.0_8994f5b75215417ae1f9d462ff42e62cf7964ad2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.54.2/jars/libs/infer-annotations-4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="9809e90be788acdb479b2b44e2112f3295a03068">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/infer-annotations-4.0_0643ffe264007f20a182e97ab75123de042dcbb0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="052f5f840f21174a3ecf6544130194e2652cbb73">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-ui-25.3.1_3961bffdc910ec8da4cc1c6e713e29181b088acd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-25.3.1_589739f9d6b90a55a90a5a7cd3ca3ef49176f9d6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.4.0_4a6f124866072416f6f7750cfb092d2b353ff8e6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-okhttp3/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c03c08c9934b23c8c09c803345ec51a74119127b">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-okhttp3-1.3.0_2eb971e20654a50cc7125e46e8cb49d40664c001.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.3.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6ef31f1555bb4cc513ec8d52711365a8b89f3600">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-utils-25.3.1_64903798c09944b2921e2ec2df9f00ebffbc49bc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="48c7f54c2515a2312d3a4481d10c43fbb807f3af">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-1.3.0_5b118150f780f61761b40ea63643ba0bbf79c02e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.25.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="474cccf169297d49fff89fd35b7634a7a9d1031c">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/com.facebook.android-facebook-android-sdk-4.25.0_ba6e72af1963741c7bfcb3f49b6dfb4b297fbb5a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/exploded-aar/com.facebook.soloader/soloader/0.1.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8f615bca00639150c9eb6175d4b5471193f70794">
+        <dex dex="/home/paul/Documents/Mobile/SafeTrekFB/android/app/build/intermediates/pre-dexed/debug/com.facebook.soloader-soloader-0.1.0_94c22c61899925085cdb662f81d46368283068dc.jar" />
+    </item>
+
+</items>
