@@ -1,6 +1,6 @@
 import {AsyncStorage} from 'react-native'
 import Settings from '../models/Settings'
-import {SafeTrekToken} from '../models/Auth'
+import {SafeTrekToken} from '../models/Rest'
 // import Auth from '../models/Auth'
 export class LocalStorage {
     async getToken(key: string): Promise <SafeTrekToken> {
