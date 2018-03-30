@@ -3,5 +3,4 @@ fsbk-override
 secrets.js
 yarn.lock
 artifacts
-android/local.properties
 android/app/build
