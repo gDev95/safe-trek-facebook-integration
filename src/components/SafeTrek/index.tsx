@@ -116,7 +116,7 @@ export default class SafeTrek extends Component<Props, State> {
               const refreshToken = responseData.refresh_token
               const createdAt = Date.now()
               // set Token in store and set token in state
-              this.props.localStorage.setToken({accessToken, refreshToken, createdAt}, 'test')
+              this.props.localStorage.setToken({accessToken, refreshToken, createdAt}, 'SafeTrekToken')
               .then(() => {
                 this.setState({
                   safeTrekToken: {
@@ -131,9 +131,9 @@ export default class SafeTrek extends Component<Props, State> {
 
           } else if (this.state.safeTrekToken.accessToken.length <= 0) {
             // if not SafeTrek token is stored redirect user to authorize app
-            let url = `https://account-sandbox.safetrek.io/authorize?
-            audience=https://api-sandbox.safetrek.io&client_id=${SafeTrekClientId}
-            &scope=openid+phone+offline_access&response_type=code&redirect_uri=safetrekfb://callback`
+            let url = 'https://account-sandbox.safetrek.io/authorize?' +
+            `audience=https://api-sandbox.safetrek.io&client_id=${SafeTrekClientId}` +
+            '&scope=openid+phone+offline_access&response_type=code&redirect_uri=safetrekfb://callback'
             Linking.openURL(url).catch(err => console.error('An error occurred', err))
           }
         }
@@ -159,13 +159,15 @@ export default class SafeTrek extends Component<Props, State> {
       const createdAt = Date.now()
       localStorage.setToken({
         accessToken: accessToken,
+        refreshToken: refreshToken,
         createdAt: createdAt
       },
       'SafeTrekToken')
       .then(() => {
         this.setState({
           safeTrekToken: {
-            accessToken: accessToken
+            accessToken: accessToken,
+            refreshToken: refreshToken
           }
         })
         this.props.localStorage.getToken('SafeTrekToken')
@@ -183,48 +185,50 @@ export default class SafeTrek extends Component<Props, State> {
     // double check that the app was authorized
     if (this.state.safeTrekToken.accessToken.length <= 0) {
       alert('Please make sure to authorize Safe Treks service for the App.\n Close the app and try again!')
+   } else {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+      this.setState({
+        geolocation: {latitude: position.coords.latitude, longitude: position.coords.longitude}
+      })
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.state.safeTrekToken.accessToken}`
+        }
+      }
+      const data = {
+        'services': {
+              'police': true,
+              'fire': false,
+              'medical': false
+            },
+            'location.coordinates': {
+              'lat': this.state.geolocation.latitude,
+              'lng': this.state.geolocation.longitude,
+              'accuracy': 10
+            }
+      }
+      // send alarm
+      axios.post('https://api-sandbox.safetrek.io/v1/alarms', data, config)
+      .then(() => {
+        if (this.state.settings.shareLocation) {
+          this.shareAlarm(this.state.geolocation)
+        } else {
+          this.shareAlarm()
+        }
+        this.setState({alarmCreated: true})
+        setTimeout(() => { this.setState({alarmCreated: false})}, 10000)
+        })
+      .catch(error => {
+          alert('There was a problem with sending the Alarm.\n' + error.message)
+        })
+      },
+      (error) => alert('error: ' + error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+      )
    }
-   navigator.geolocation.getCurrentPosition(
-    (position) => {
-    this.setState({
-      geolocation: {latitude: position.coords.latitude, longitude: position.coords.longitude}
-    })
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.state.safeTrekToken.accessToken}`
-      }
-    }
-    const data = {
-      'services': {
-            'police': true,
-            'fire': false,
-            'medical': false
-          },
-          'location.coordinates': {
-            'lat': this.state.geolocation.latitude,
-            'lng': this.state.geolocation.longitude,
-            'accuracy': 10
-          }
-    }
-    // send alarm
-    axios.post('https://api-sandbox.safetrek.io/v1/alarms', data, config)
-    .then(() => {
-      if (this.state.settings.shareLocation) {
-        this.shareAlarm(this.state.geolocation)
-      } else {
-        this.shareAlarm()
-      }
-      this.setState({alarmCreated: true})
-      setTimeout(() => { this.setState({alarmCreated: false})}, 10000)
-      })
-    .catch(error => {
-        alert('There was a problem with sending the Alarm.\n' + error.message)
-      })
-    },
-    (error) => alert('error: ' + error.message),
-    { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-    )
+
   }
   shareAlarm = (geolocation: Geolocation = undefined): void => {
     if (geolocation) {
