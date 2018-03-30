@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SafeTrekFB</string>
+    <string name="facebook_app_id">423623411393868</string>
+    <string name="fb_login_protocol_scheme">fb423623411393868</string>
 </resources>

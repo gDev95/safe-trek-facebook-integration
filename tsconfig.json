@@ -13,7 +13,12 @@
     "sourceMap": true,
     "noImplicitReturns": true,
     "noUnusedParameters": true,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "experimentalDecorators": true,
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "types": ["node"]
   },
   "filesGlob": [
     "typings/index.d.ts",
@@ -23,7 +28,9 @@
   "types": [
     "react",
     "react-native",
-    "jest"
+    "jest",
+    "node",
+    "jasmine"
   ],
   "exclude": [
     "android",

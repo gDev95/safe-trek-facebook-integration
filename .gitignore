@@ -1,0 +1,7 @@
+node_modules/
+fsbk-override
+secrets.js
+yarn.lock
+artifacts
+android/app/build
+android/app/src/main/assets
