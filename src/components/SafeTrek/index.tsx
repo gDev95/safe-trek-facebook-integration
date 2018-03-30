@@ -64,19 +64,16 @@ export default class SafeTrek extends Component<Props, State> {
       .then((token) => {
         if (token) {
           const now = Date.now()
-          console.log('Now : ', now)
-          console.log('createdAt: ', token.createdAt )
-          console.log('AccessToken: ', token.accessToken)
           const tokenCreatedAt = token.createdAt
           const hourInMills = 3600000
           const diffInMills = Math.abs(now - tokenCreatedAt)
           const diffInHours = diffInMills / hourInMills
-          console.log('Difference: ', diffInMills)
-          console.log('Difference in Hours: ', diffInMills / hourInMills)
+          // console.log('Difference: ', diffInMills)
+          // console.log('Difference in Hours: ', diffInMills / hourInMills)
           // Token expires after 10 hours
 
           if (diffInHours >= 10) {
-            console.log('need to get new accessToken with refreshToken')
+
             // access token has expired
             // get new token and update in store
             this.updateSafeTrekToken(token.refreshToken)
