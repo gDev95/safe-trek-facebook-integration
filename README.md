@@ -18,5 +18,8 @@ This is a conflict of `@types/react-native` and `@types/node` in `node_modules`
 Open the `index.d.ts` suggested by the error message and comment out the line indicated by the error
 (working on a better solution)
 
+Another requirement to run this app is to possess the Credentials for Safe Trek's API that I have stored in a file unaccessible for the public. 
+
+Please contact me for those credentials.
 ### Building the app (Please make sure that either an emulator is running or a physical android device)
 ` npm run build-android`
