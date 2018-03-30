@@ -4,13 +4,12 @@ import StyledContainer from './StyledContainer'
 interface SettingsProps {
     shareLocation: boolean,
     onChange (): void,
-    alarmCreated: boolean
 }
 const Settings: StatelessComponent<SettingsProps> = (props) => {
-    const {shareLocation, onChange, alarmCreated} = props
+    const {shareLocation, onChange} = props
     return(
         <StyledContainer>
-          <Option label='Share my location on Facebook' value={shareLocation} onValueChange={onChange} alarmCreated={alarmCreated}/>
+          <Option label='Share my location on Facebook' value={shareLocation} onValueChange={onChange} />
         </StyledContainer>
         )
 

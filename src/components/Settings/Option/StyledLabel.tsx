@@ -1,8 +1,6 @@
-import styled, {withProps} from '../../../theme'
+import styled from '../../../theme'
 import {Text} from 'react-native'
-interface TextProps {
-    alarmCreated: boolean
-}
-export default withProps<TextProps, HTMLDivElement>(styled(Text))`
-color:${props => props.alarmCreated ? '#000' : '#FFF'};
+
+export default styled(Text)`
+color:'#18168c';
 `

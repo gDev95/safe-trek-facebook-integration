@@ -6,15 +6,18 @@ interface OptionProps {
     label: string
     value: boolean,
     onValueChange (): void,
-    alarmCreated: boolean
 }
 
 const Option: StatelessComponent<OptionProps> = props => {
-    const {label, value, onValueChange, alarmCreated} = props
+    const {label, value, onValueChange} = props
     return(
         <StyledContainer>
-            <StyledLabel alarmCreated={alarmCreated}>{label}</StyledLabel>
-            <Switch value={value} onValueChange={onValueChange}/>
+            <StyledLabel >{label}</StyledLabel>
+            <Switch
+                value={value}
+                onValueChange={onValueChange}
+                onTintColor='red'
+                thumbTintColor='#111A49'/>
         </StyledContainer>
     )
 

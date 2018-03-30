@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Image } from 'react-native'
 import { observer, inject } from 'mobx-react/native'
 import axios from 'axios'
 import { ShareApi } from 'react-native-fbsdk'
@@ -17,11 +18,11 @@ import SettingsControls from '../Settings'
 import StyledView from './StyledView'
 // import secrets, keys and ids
 import {
-  SafeTrekClientId, 
-  SafeTrekClientSecret, 
+  SafeTrekClientId,
+  SafeTrekClientSecret,
   GoogleApiKey
 } from '../../../secrets.js'
-
+const logo = require('../../../safetrek-logo.png')
 interface Props {
   localStorage?: LocalStorage
 }
@@ -59,44 +60,45 @@ export default class SafeTrek extends Component<Props, State> {
 
     Linking.getInitialURL().then((uri) => {
       // get SafeTrek's access and refresh token from store
-      this.props.localStorage.getToken('test')
+      this.props.localStorage.getToken('SafeTrekToken')
       .then((token) => {
         if (token) {
           const now = Date.now()
+          console.log('Now : ', now)
+          console.log('createdAt: ', token.createdAt )
+          console.log('AccessToken: ', token.accessToken)
           const tokenCreatedAt = token.createdAt
           const hourInMills = 3600000
           const diffInMills = Math.abs(now - tokenCreatedAt)
-          const diffInHours = diffInMills/hourInMills 
-          console.log('Difference: ',diffInMills)
-          console.log('Difference in Hours: ', diffInMills/hourInMills)
+          const diffInHours = diffInMills / hourInMills
+          console.log('Difference: ', diffInMills)
+          console.log('Difference in Hours: ', diffInMills / hourInMills)
           // Token expires after 10 hours
-          if(diffInHours >= 10) {
+
+          if (diffInHours >= 10) {
             console.log('need to get new accessToken with refreshToken')
             // access token has expired
             // get new token and update in store
-            this.updateSafeTrekToken().then(() => {
+            this.updateSafeTrekToken(token.refreshToken)
               // get settings from store
-              this.props.localStorage.getSettings()
-                .then((savedSettings) => {
-                  if(savedSettings) {
-                    this.setState({settings: savedSettings})
-                  }
-                })
-                .catch(error => console.log('error occured : ', error.message ))
+            this.props.localStorage.getSettings()
+              .then((savedSettings) => {
+                if (savedSettings) {
+                  this.setState({settings: savedSettings})
+                }
+
             })
-          }
-          else {
+          } else {
             this.setState({safeTrekToken: token})
             // get Settings from store
             this.props.localStorage.getSettings()
             .then((savedSettings) => {
-              if(savedSettings) {
+              if (savedSettings) {
                 this.setState({settings: savedSettings})
               }
             })
           }
-        } 
-        else {
+        } else {
           if (uri) {
             const authCode = uri.substring(uri.indexOf('=') + 1, uri.indexOf('&'))
             const data = {
@@ -114,18 +116,12 @@ export default class SafeTrek extends Component<Props, State> {
               const refreshToken = responseData.refresh_token
               const createdAt = Date.now()
               // set Token in store and set token in state
-              this.props.localStorage.setToken({accessToken, refreshToken, createdAt}, 'test').then(() => {
+              this.props.localStorage.setToken({accessToken, refreshToken, createdAt}, 'test')
+              .then(() => {
                 this.setState({
-                  safeTrekToken: { 
-                    accessToken: accessToken, 
-                    refreshToken: refreshToken 
-                  }
-                })
-                // load settings from store
-                this.props.localStorage.getSettings()
-                .then((savedSettings) => {
-                  if (savedSettings) {
-                    this.setState({settings: savedSettings})
+                  safeTrekToken: {
+                    accessToken: accessToken,
+                    refreshToken: refreshToken
                   }
                 })
               })
@@ -133,10 +129,11 @@ export default class SafeTrek extends Component<Props, State> {
             })
             .catch(error => console.log('Error retrieving accessToken: ', error))
 
-          } 
-          else if (this.state.safeTrekToken.accessToken.length <= 0) {
+          } else if (this.state.safeTrekToken.accessToken.length <= 0) {
             // if not SafeTrek token is stored redirect user to authorize app
-            let url = `https://account-sandbox.safetrek.io/authorize?audience=https://api-sandbox.safetrek.io&client_id=${SafeTrekClientId}&scope=openid+phone+offline_access&response_type=code&redirect_uri=safetrekfb://callback`
+            let url = `https://account-sandbox.safetrek.io/authorize?
+            audience=https://api-sandbox.safetrek.io&client_id=${SafeTrekClientId}
+            &scope=openid+phone+offline_access&response_type=code&redirect_uri=safetrekfb://callback`
             Linking.openURL(url).catch(err => console.error('An error occurred', err))
           }
         }
@@ -145,42 +142,46 @@ export default class SafeTrek extends Component<Props, State> {
         }). catch (error => console.log('Error occured: ' + error))
 
   }
-  updateSafeTrekToken = (): Promise<void> => {
+  updateSafeTrekToken = (refreshToken): void => {
+    const { localStorage } = this.props
+    console.log('using RefreshToken: ' , refreshToken)
     const data = {
       'grant_type': 'refresh_token',
       'client_id': SafeTrekClientId,
       'client_secret': SafeTrekClientSecret,
-      'refresh_token': this.state.safeTrekToken.refreshToken 
+      'refresh_token': refreshToken
     }
-    return axios.post('https://login-sandbox.safetrek.io/oauth/token', data)
+    console.log('data: ', data)
+    axios.post('https://login-sandbox.safetrek.io/oauth/token', data)
     .then((response) => {
       const responseData = response.data
       const accessToken = responseData.access_token
-      const refreshToken = responseData.refresh_token
       const createdAt = Date.now()
-      this.props.localStorage.setToken({ 
+      localStorage.setToken({
         accessToken: accessToken,
-        refreshToken: refreshToken,
         createdAt: createdAt
       },
       'SafeTrekToken')
       .then(() => {
         this.setState({
-          safeTrekToken: { 
-            accessToken: accessToken, 
-            refreshToken: refreshToken 
+          safeTrekToken: {
+            accessToken: accessToken
           }
         })
+        this.props.localStorage.getToken('SafeTrekToken')
+      .then(token => console.log(token.createdAt))
       })
+      .catch(error => console.log('Error retrieving new Token: ', error.message))
 
     })
+    .catch(error => console.log(error.message))
   }
   updateFacebookToken = (token: string): void => {
     this.setState({facebookToken: token})
   }
   triggerAlarm = (): void => {
     // double check that the app was authorized
-    if(this.state.safeTrekToken.accessToken.length <= 0) { 
+    if (this.state.safeTrekToken.accessToken.length <= 0) {
       alert('Please make sure to authorize Safe Treks service for the App.\n Close the app and try again!')
    }
    navigator.geolocation.getCurrentPosition(
@@ -189,34 +190,33 @@ export default class SafeTrek extends Component<Props, State> {
       geolocation: {latitude: position.coords.latitude, longitude: position.coords.longitude}
     })
     const config = {
-      headers:{ 
-        'Content-Type': 'application/json', 
+      headers: {
+        'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.state.safeTrekToken.accessToken}`
       }
     }
     const data = {
-      "services": {
-            "police": true,
-            "fire": false,
-            "medical": false
+      'services': {
+            'police': true,
+            'fire': false,
+            'medical': false
           },
-          "location.coordinates": {
-            "lat": this.state.geolocation.latitude,
-            "lng": this.state.geolocation.longitude,
-            "accuracy": 10
+          'location.coordinates': {
+            'lat': this.state.geolocation.latitude,
+            'lng': this.state.geolocation.longitude,
+            'accuracy': 10
           }
-    }      
+    }
     // send alarm
-    axios.post('https://api-sandbox.safetrek.io/v1/alarms',data, config)
+    axios.post('https://api-sandbox.safetrek.io/v1/alarms', data, config)
     .then(() => {
-      if(this.state.settings.shareLocation){
+      if (this.state.settings.shareLocation) {
         this.shareAlarm(this.state.geolocation)
-      }
-      else {
+      } else {
         this.shareAlarm()
       }
       this.setState({alarmCreated: true})
-      setTimeout(() => { this.setState({alarmCreated: false})}, 10000);
+      setTimeout(() => { this.setState({alarmCreated: false})}, 10000)
       })
     .catch(error => {
         alert('There was a problem with sending the Alarm.\n' + error.message)
@@ -250,7 +250,7 @@ export default class SafeTrek extends Component<Props, State> {
           }
         ).then(
           () => {
-            console.log("Success")
+            console.log('Success')
           },
          (error) => {
             console.log('error: ' + error)
@@ -259,8 +259,7 @@ export default class SafeTrek extends Component<Props, State> {
       })
       .catch(e => alert(e))
 
-    } 
-    else {
+    } else {
     const shareLinkContent = {
         contentType: 'link',
         contentUrl: `www.safetrek.com`,
@@ -274,7 +273,7 @@ export default class SafeTrek extends Component<Props, State> {
         }
       ).then(
         () => {
-          console.log("Success")
+          console.log('Success')
         },
        (error) => {
           console.log('error: ' + error)
@@ -290,7 +289,7 @@ export default class SafeTrek extends Component<Props, State> {
         .then((savedSettings) => {
           if (savedSettings) {
             this.setState({settings: savedSettings})
-          } 
+          }
         })
         .catch(e => alert(e))
        })
@@ -298,17 +297,19 @@ export default class SafeTrek extends Component<Props, State> {
   }
   render() {
     return (
-      <StyledView alarmCreated={this.state.alarmCreated}>
+      <StyledView>
+        <Image source={logo} style={{width: 260 , height: 55, marginBottom: 30}}/>
         {
           (this.state.facebookToken.length <= 0 )
           ? <Login
               accessToken={this.state.facebookToken}
               onTokenUpdate={this.updateFacebookToken}/>
-          : <AlarmButton onAlarmTriggered={this.triggerAlarm} />
+          : <AlarmButton
+              alarmCreated={this.state.alarmCreated}
+              onAlarmTriggered={this.triggerAlarm} />
         }
-        <SettingsControls 
-          alarmCreated={this.state.alarmCreated}
-          shareLocation={this.state.settings.shareLocation} 
+        <SettingsControls
+          shareLocation={this.state.settings.shareLocation}
           onChange={this.updateLocationSharing}/>
       </StyledView>
     )

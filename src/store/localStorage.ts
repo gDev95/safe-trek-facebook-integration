@@ -9,6 +9,7 @@ export class LocalStorage {
             return JSON.parse(json) as SafeTrekToken
         })
     }
+
     async setToken(newToken: SafeTrekToken, key: string): Promise<void> {
         return AsyncStorage.setItem(`@${key}`, JSON.stringify(newToken))
     }

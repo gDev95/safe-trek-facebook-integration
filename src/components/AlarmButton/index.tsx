@@ -6,7 +6,6 @@ import {
     StyleSheet
 } from 'react-native'
 
-const helpIcon = (<Icon name='bell' size={30} color='#FFF' />)
 const styles = StyleSheet.create({
 
     button: {
@@ -14,12 +13,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 50,
-        backgroundColor: '#1d2749',
+        backgroundColor: '#18168c',
         height: 80,
         width: 80
     }
 })
 interface Props {
+    alarmCreated: boolean,
     onAlarmTriggered(): void
 }
 class AlarmButton extends Component<Props> {
@@ -27,9 +27,13 @@ class AlarmButton extends Component<Props> {
     render() {
         return(
             <View>
-                <TouchableHighlight style={styles.button} onPress={this.props.onAlarmTriggered}>
-                    <View style={styles.button}>
-                        {helpIcon}
+                <TouchableHighlight
+                    style={styles.button}
+                    onPress={this.props.onAlarmTriggered}
+                    underlayColor='#628efc'
+                    >
+                    <View>
+                        <Icon name='circle' size={20} color={this.props.alarmCreated ? '#FFF' : '#18168c'} / >
                     </View>
                 </TouchableHighlight>
             </View>
