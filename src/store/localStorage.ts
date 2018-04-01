@@ -1,17 +1,26 @@
 import {AsyncStorage} from 'react-native'
 import Settings from '../models/Settings'
-import {SafeTrekToken} from '../models/Rest'
+import {SafeTrekToken, Token} from '../models/Rest'
 // import Auth from '../models/Auth'
 export class LocalStorage {
-    async getToken(key: string): Promise <SafeTrekToken> {
-        return AsyncStorage.getItem(`@${key}`)
+    async getFacebookToken(): Promise<Token> {
+        return AsyncStorage.getItem('@FacebookToken')
+        .then((json) => {
+            return JSON.parse(json) as Token
+        })
+    }
+    async setFacebookToken(newToken: Token): Promise<void> {
+        return AsyncStorage.setItem('@FacebookToken', JSON.stringify(newToken))
+    }
+    async getSafeTrekToken(): Promise <SafeTrekToken> {
+        return AsyncStorage.getItem(`@SafeTrekToken`)
         .then((json) => {
             return JSON.parse(json) as SafeTrekToken
         })
     }
 
-    async setToken(newToken: SafeTrekToken, key: string): Promise<void> {
-        return AsyncStorage.setItem(`@${key}`, JSON.stringify(newToken))
+    async setSafeTrekToken(newToken: SafeTrekToken): Promise<void> {
+        return AsyncStorage.setItem(`@$SafeTrekToken`, JSON.stringify(newToken))
     }
     async removeToken(key: string): Promise<void> {
         return AsyncStorage.removeItem(key)
