@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import { Image } from 'react-native'
 import { observer, inject } from 'mobx-react/native'
 import axios from 'axios'
+import { LoginManager, AccessToken } from 'react-native-fbsdk'
 import { ShareApi } from 'react-native-fbsdk'
 import { Linking } from 'react-native'
+
 // store
 import { LocalStorage } from '../../store/localStorage'
 // custom models
@@ -11,7 +13,6 @@ import Settings from '../../models/Settings'
 import { SafeTrekToken } from '../../models/Rest'
 import Geolocation from '../../models/Geolocation'
 // custom components
-import Login from '../Login'
 import AlarmButton from '../AlarmButton'
 import SettingsControls from '../Settings'
 // styled Components
@@ -22,6 +23,7 @@ import {
   SafeTrekClientSecret,
   GoogleApiKey
 } from '../../../secrets.js'
+
 const logo = require('../../../safetrek-logo.png')
 interface Props {
   localStorage?: LocalStorage
@@ -57,31 +59,53 @@ export default class SafeTrek extends Component<Props, State> {
     }
   }
   componentDidMount () {
-
+    const { localStorage } = this.props
     Linking.getInitialURL().then((uri) => {
       // get SafeTrek's access and refresh token from store
-      this.props.localStorage.getToken('SafeTrekToken')
-      .then((token) => {
-        if (token) {
+      localStorage.getSafeTrekToken()
+      .then((safeTrekToken) => {
+        if (safeTrekToken) {
           const now = Date.now()
-          console.log('Now : ', now)
-          console.log('createdAt: ', token.createdAt )
-          console.log('AccessToken: ', token.accessToken)
-          const tokenCreatedAt = token.createdAt
+          const tokenCreatedAt = safeTrekToken.createdAt
           const hourInMills = 3600000
           const diffInMills = Math.abs(now - tokenCreatedAt)
           const diffInHours = diffInMills / hourInMills
-          console.log('Difference: ', diffInMills)
-          console.log('Difference in Hours: ', diffInMills / hourInMills)
+          // console.log('Difference: ', diffInMills)
+          // console.log('Difference in Hours: ', diffInMills / hourInMills)
           // Token expires after 10 hours
 
           if (diffInHours >= 10) {
-            console.log('need to get new accessToken with refreshToken')
+
             // access token has expired
             // get new token and update in store
-            this.updateSafeTrekToken(token.refreshToken)
+            this.updateSafeTrekToken(safeTrekToken.refreshToken)
               // get settings from store
-            this.props.localStorage.getSettings()
+              localStorage.getFacebookToken().then(facebookToken => {
+              if (facebookToken) {
+                this.setState({facebookToken: facebookToken.accessToken})
+              }
+              else {
+                // obtain user permission to use facebook
+                LoginManager.logInWithPublishPermissions(['publish_actions'])
+                .then((result) => {
+                  if (result.isCancelled) {
+                    alert('This app needs facebook permission')
+                  }
+                  else {
+                    AccessToken.getCurrentAccessToken().then(
+                      (data) => {
+                        alert(data.accessToken.toString())
+                        localStorage.setFacebookToken({ accessToken : data.accessToken.toString()})
+                        .then(() => {
+                          this.setState({facebookToken: data.accessToken.toString()})
+                        })
+                      })
+
+                  }
+                }, error => console.log(error))
+              }
+            })
+            localStorage.getSettings()
               .then((savedSettings) => {
                 if (savedSettings) {
                   this.setState({settings: savedSettings})
@@ -89,9 +113,33 @@ export default class SafeTrek extends Component<Props, State> {
 
             })
           } else {
-            this.setState({safeTrekToken: token})
+            this.setState({safeTrekToken: safeTrekToken})
             // get Settings from store
-            this.props.localStorage.getSettings()
+            localStorage.getFacebookToken().then(facebookToken => {
+              if (facebookToken) {
+                this.setState({facebookToken: facebookToken.accessToken})
+              }
+              else {
+                // obtain user permission to use facebook
+                LoginManager.logInWithPublishPermissions(['publish_actions'])
+                .then((result) => {
+                  if (result.isCancelled) {
+                    alert('This app needs facebook permission')
+                  }
+                  else {
+                    AccessToken.getCurrentAccessToken().then(
+                      (data) => {
+                        localStorage.setFacebookToken({ accessToken : data.accessToken.toString()})
+                        .then(() => {
+                          this.setState({facebookToken: data.accessToken.toString()})
+                        })
+                      })
+
+                  }
+                }, error => console.log(error))
+              }
+            })
+            localStorage.getSettings()
             .then((savedSettings) => {
               if (savedSettings) {
                 this.setState({settings: savedSettings})
@@ -101,14 +149,14 @@ export default class SafeTrek extends Component<Props, State> {
         } else {
           if (uri) {
             const authCode = uri.substring(uri.indexOf('=') + 1, uri.indexOf('&'))
-            const data = {
+            const postData = {
               'grant_type': 'authorization_code',
               'code': authCode,
               'client_id': SafeTrekClientId,
               'client_secret': SafeTrekClientSecret,
               'redirect_uri': 'safetrekfb://callback'
             }
-            axios.post('https://login-sandbox.safetrek.io/oauth/token', data)
+            axios.post('https://login-sandbox.safetrek.io/oauth/token', postData)
             .then(response => {
               const responseData = response.data
               // Token Type is bearer
@@ -116,7 +164,7 @@ export default class SafeTrek extends Component<Props, State> {
               const refreshToken = responseData.refresh_token
               const createdAt = Date.now()
               // set Token in store and set token in state
-              this.props.localStorage.setToken({accessToken, refreshToken, createdAt}, 'test')
+              localStorage.setSafeTrekToken({accessToken, refreshToken, createdAt} )
               .then(() => {
                 this.setState({
                   safeTrekToken: {
@@ -125,50 +173,75 @@ export default class SafeTrek extends Component<Props, State> {
                   }
                 })
               })
+              localStorage.getFacebookToken().then(facebookToken => {
+                if (facebookToken) {
+                  this.setState({facebookToken: facebookToken.accessToken})
+                }
+                else {
+                  // obtain user permission to use facebook
+                  LoginManager.logInWithPublishPermissions(['publish_actions'])
+                  .then((result) => {
+                    if (result.isCancelled) {
+                      alert('This app needs facebook permission')
+                    }
+                    else {
+                      AccessToken.getCurrentAccessToken().then(
+                        (data) => {
+                          localStorage.setFacebookToken({ accessToken : data.accessToken.toString()})
+                          .then(() => {
+                            this.setState({facebookToken: data.accessToken.toString()})
+                          })
+                        })
+
+                    }
+                  }, error => console.log(error))
+                }
+              })
 
             })
             .catch(error => console.log('Error retrieving accessToken: ', error))
 
           } else if (this.state.safeTrekToken.accessToken.length <= 0) {
             // if not SafeTrek token is stored redirect user to authorize app
-            let url = `https://account-sandbox.safetrek.io/authorize?
-            audience=https://api-sandbox.safetrek.io&client_id=${SafeTrekClientId}
-            &scope=openid+phone+offline_access&response_type=code&redirect_uri=safetrekfb://callback`
+            let url = 'https://account-sandbox.safetrek.io/authorize?' +
+            `audience=https://api-sandbox.safetrek.io&client_id=${SafeTrekClientId}` +
+            '&scope=openid+phone+offline_access&response_type=code&redirect_uri=safetrekfb://callback'
             Linking.openURL(url).catch(err => console.error('An error occurred', err))
           }
         }
       })
-      .catch(error => console.log(error))
+      . catch (error => console.log(error))
         }). catch (error => console.log('Error occured: ' + error))
 
   }
   updateSafeTrekToken = (refreshToken): void => {
     const { localStorage } = this.props
-    console.log('using RefreshToken: ' , refreshToken)
+    // console.log('using RefreshToken: ' , refreshToken)
     const data = {
       'grant_type': 'refresh_token',
       'client_id': SafeTrekClientId,
       'client_secret': SafeTrekClientSecret,
       'refresh_token': refreshToken
     }
-    console.log('data: ', data)
+    // console.log('data: ', data)
     axios.post('https://login-sandbox.safetrek.io/oauth/token', data)
     .then((response) => {
       const responseData = response.data
       const accessToken = responseData.access_token
       const createdAt = Date.now()
-      localStorage.setToken({
+      localStorage.setSafeTrekToken({
         accessToken: accessToken,
+        refreshToken: refreshToken,
         createdAt: createdAt
-      },
-      'SafeTrekToken')
+      })
       .then(() => {
         this.setState({
           safeTrekToken: {
-            accessToken: accessToken
+            accessToken: accessToken,
+            refreshToken: refreshToken
           }
         })
-        this.props.localStorage.getToken('SafeTrekToken')
+        localStorage.getSafeTrekToken()
       .then(token => console.log(token.createdAt))
       })
       .catch(error => console.log('Error retrieving new Token: ', error.message))
@@ -183,48 +256,50 @@ export default class SafeTrek extends Component<Props, State> {
     // double check that the app was authorized
     if (this.state.safeTrekToken.accessToken.length <= 0) {
       alert('Please make sure to authorize Safe Treks service for the App.\n Close the app and try again!')
+   } else {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+      this.setState({
+        geolocation: {latitude: position.coords.latitude, longitude: position.coords.longitude}
+      })
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.state.safeTrekToken.accessToken}`
+        }
+      }
+      const data = {
+        'services': {
+              'police': true,
+              'fire': false,
+              'medical': false
+            },
+            'location.coordinates': {
+              'lat': this.state.geolocation.latitude,
+              'lng': this.state.geolocation.longitude,
+              'accuracy': 10
+            }
+      }
+      // send alarm
+      axios.post('https://api-sandbox.safetrek.io/v1/alarms', data, config)
+      .then(() => {
+        if (this.state.settings.shareLocation) {
+          this.shareAlarm(this.state.geolocation)
+        } else {
+          this.shareAlarm()
+        }
+        this.setState({alarmCreated: true})
+        setTimeout(() => { this.setState({alarmCreated: false})}, 10000)
+        })
+      .catch(error => {
+          alert('There was a problem with sending the Alarm.\n' + error.message)
+        })
+      },
+      (error) => alert('error: ' + error.message),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+      )
    }
-   navigator.geolocation.getCurrentPosition(
-    (position) => {
-    this.setState({
-      geolocation: {latitude: position.coords.latitude, longitude: position.coords.longitude}
-    })
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.state.safeTrekToken.accessToken}`
-      }
-    }
-    const data = {
-      'services': {
-            'police': true,
-            'fire': false,
-            'medical': false
-          },
-          'location.coordinates': {
-            'lat': this.state.geolocation.latitude,
-            'lng': this.state.geolocation.longitude,
-            'accuracy': 10
-          }
-    }
-    // send alarm
-    axios.post('https://api-sandbox.safetrek.io/v1/alarms', data, config)
-    .then(() => {
-      if (this.state.settings.shareLocation) {
-        this.shareAlarm(this.state.geolocation)
-      } else {
-        this.shareAlarm()
-      }
-      this.setState({alarmCreated: true})
-      setTimeout(() => { this.setState({alarmCreated: false})}, 10000)
-      })
-    .catch(error => {
-        alert('There was a problem with sending the Alarm.\n' + error.message)
-      })
-    },
-    (error) => alert('error: ' + error.message),
-    { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-    )
+
   }
   shareAlarm = (geolocation: Geolocation = undefined): void => {
     if (geolocation) {
@@ -262,7 +337,7 @@ export default class SafeTrek extends Component<Props, State> {
     } else {
     const shareLinkContent = {
         contentType: 'link',
-        contentUrl: `www.safetrek.com`,
+        contentUrl: `https://www.safetrekapp.com/`,
         contentDescription: `Alarm and Location send via Safe Trek App!`
       }
       ShareApi.canShare(shareLinkContent).then(
@@ -299,15 +374,11 @@ export default class SafeTrek extends Component<Props, State> {
     return (
       <StyledView>
         <Image source={logo} style={{width: 260 , height: 55, marginBottom: 30}}/>
-        {
-          (this.state.facebookToken.length <= 0 )
-          ? <Login
-              accessToken={this.state.facebookToken}
-              onTokenUpdate={this.updateFacebookToken}/>
-          : <AlarmButton
-              alarmCreated={this.state.alarmCreated}
-              onAlarmTriggered={this.triggerAlarm} />
-        }
+          <AlarmButton
+            alarmCreated={this.state.alarmCreated}
+            onAlarmTriggered={this.triggerAlarm}
+             />
+
         <SettingsControls
           shareLocation={this.state.settings.shareLocation}
           onChange={this.updateLocationSharing}/>
