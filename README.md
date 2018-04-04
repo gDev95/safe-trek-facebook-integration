@@ -4,9 +4,9 @@ The React Native App is developed targeting Android and not yet fully hybrid. Th
 
 ## In order to run  the app
 ### Clone and install dependencies:
-` git clone https://github.com/gDev95/safe-trek-facebook-integration.git` 
+` git clone https://github.com/gDev95/safe-trek-react-native.git` 
 
-` cd ./safe-trek-facebook-integration`
+` cd ./safe-trek-react-native`
 
 ` yarn`
 
